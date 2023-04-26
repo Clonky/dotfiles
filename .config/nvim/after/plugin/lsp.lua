@@ -44,6 +44,10 @@ lsp.set_preferences({
 	}
 })
 
+vim.diagnostic.config({
+    virtual_text = true
+})
+
 lsp.on_attach(function(client, bufnr)
 	local opts = {buffer = bufnr, remap = false}
  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -58,8 +62,11 @@ lsp.on_attach(function(client, bufnr)
  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+lsp.format_on_save({
+    servers = {
+        ['rust-analyzer'] = {'rust'},
+    }
+})
+
 lsp.setup()
 
-vim.diagnostic.config({
-    virtual_text = true
-})
